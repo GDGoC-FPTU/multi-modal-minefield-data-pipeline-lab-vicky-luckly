@@ -10,6 +10,8 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
 
+REQUIRED_RESPONSE_FIELDS = ("title", "author", "summary", "main_topics", "tables")
+
 
 def _is_rate_limit_error(error):
     error_message = str(error).lower()
@@ -34,19 +36,54 @@ def _parse_json_response(raw_text):
     return json.loads(text)
 
 
-def _fallback_document(file_path, reason):
-    file_name = os.path.basename(file_path)
-    return {
-        "document_id": "pdf-doc-001",
-        "content": f"PDF extraction fallback for {file_name}. Reason: {reason}",
-        "source_type": "PDF",
-        "author": "Unknown",
-        "timestamp": None,
-        "source_metadata": {
-            "original_file": file_name,
-            "extraction_status": "fallback",
-        },
-    }
+def _require_api_key():
+    if GEMINI_API_KEY:
+        return
+    raise RuntimeError(
+        "GEMINI_API_KEY is missing. Create a .env file in project root with "
+        "GEMINI_API_KEY=<your_key> or set environment variable before running."
+    )
+
+
+def _normalize_tables(raw_tables):
+    if not isinstance(raw_tables, list):
+        return []
+
+    normalized = []
+    for table in raw_tables:
+        if not isinstance(table, dict):
+            continue
+
+        table_name = str(table.get("table_name", "")).strip() or "Unnamed table"
+        key_values = table.get("key_values", [])
+        if not isinstance(key_values, list):
+            key_values = []
+
+        clean_values = [str(value).strip() for value in key_values if str(value).strip()]
+        normalized.append({"table_name": table_name, "key_values": clean_values})
+
+    return normalized
+
+
+def _validate_payload(payload):
+    if not isinstance(payload, dict):
+        raise ValueError("Gemini response is not a JSON object.")
+
+    missing_fields = [field for field in REQUIRED_RESPONSE_FIELDS if field not in payload]
+    if missing_fields:
+        raise ValueError(f"Gemini response is missing required fields: {missing_fields}")
+
+    summary = str(payload.get("summary", "")).strip()
+    if len(summary) < 30:
+        raise ValueError("Gemini summary is too short to be useful.")
+
+    topics = payload.get("main_topics")
+    if not isinstance(topics, list):
+        raise ValueError("main_topics must be a list.")
+
+    for topic in topics:
+        if not str(topic).strip():
+            raise ValueError("main_topics contains an empty topic.")
 
 
 def _generate_with_backoff(model, payload, retries=5, base_delay=1.0):
@@ -63,22 +100,20 @@ def _generate_with_backoff(model, payload, retries=5, base_delay=1.0):
             time.sleep(wait_seconds)
     raise last_error
 
+
 def extract_pdf_data(file_path):
     if not os.path.exists(file_path):
-        print(f"Error: File not found at {file_path}")
-        return None
+        raise FileNotFoundError(f"PDF file not found at: {file_path}")
 
-    if not GEMINI_API_KEY:
-        return _fallback_document(file_path, "missing GEMINI_API_KEY")
+    _require_api_key()
 
     model = genai.GenerativeModel('gemini-2.5-flash')
 
     print(f"Uploading {file_path} to Gemini...")
     try:
         pdf_file = genai.upload_file(path=file_path)
-    except Exception as e:
-        print(f"Failed to upload file to Gemini: {e}")
-        return _fallback_document(file_path, f"upload_failed: {e}")
+    except Exception as error:
+        raise RuntimeError(f"Failed to upload PDF to Gemini: {error}") from error
 
     prompt = """
 You are extracting structured metadata from a lecture PDF.
@@ -101,15 +136,15 @@ Return ONLY a JSON object in this exact shape:
     try:
         response = _generate_with_backoff(model, [pdf_file, prompt])
         extracted = _parse_json_response(response.text)
-    except Exception as e:
-        print(f"Gemini extraction failed: {e}")
-        return _fallback_document(file_path, f"generation_failed: {e}")
+        _validate_payload(extracted)
+    except Exception as error:
+        raise RuntimeError(f"Gemini extraction failed: {error}") from error
 
     title = str(extracted.get("title", "Untitled Document")).strip() or "Untitled Document"
     author = str(extracted.get("author", "Unknown")).strip() or "Unknown"
     summary = str(extracted.get("summary", "No summary extracted.")).strip() or "No summary extracted."
-    topics = extracted.get("main_topics") if isinstance(extracted.get("main_topics"), list) else []
-    tables = extracted.get("tables") if isinstance(extracted.get("tables"), list) else []
+    topics = [str(topic).strip() for topic in extracted.get("main_topics", []) if str(topic).strip()]
+    tables = _normalize_tables(extracted.get("tables", []))
 
     content_parts = [f"Title: {title}", f"Summary: {summary}"]
     if topics:

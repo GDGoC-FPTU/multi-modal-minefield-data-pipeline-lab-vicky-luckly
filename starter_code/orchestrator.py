@@ -31,9 +31,10 @@ def _to_json_document(unified_document):
 def _validate_and_collect(raw_output, final_kb, source_name):
     if raw_output is None:
         print(f"{source_name}: no data returned.")
-        return
+        return 0
 
     candidates = raw_output if isinstance(raw_output, list) else [raw_output]
+    accepted_count = 0
     for candidate in candidates:
         if not candidate:
             continue
@@ -50,8 +51,11 @@ def _validate_and_collect(raw_output, final_kb, source_name):
         document_dict = _to_json_document(validated)
         if run_quality_gate(document_dict):
             final_kb.append(document_dict)
+            accepted_count += 1
         else:
             print(f"{source_name}: quality gate rejected {document_dict.get('document_id', 'unknown-id')}")
+
+    return accepted_count
 
 def main():
     start_time = time.time()
@@ -67,16 +71,29 @@ def main():
     output_path = os.path.join(os.path.dirname(SCRIPT_DIR), "processed_knowledge_base.json")
     # ----------------------------------------------
 
-    source_outputs = [
-        ("PDF", extract_pdf_data(pdf_path)),
-        ("Transcript", clean_transcript(trans_path)),
-        ("HTML", parse_html_catalog(html_path)),
-        ("CSV", process_sales_csv(csv_path)),
-        ("LegacyCode", extract_logic_from_code(code_path)),
+    source_tasks = [
+        ("PDF", lambda: extract_pdf_data(pdf_path), True),
+        ("Transcript", lambda: clean_transcript(trans_path), True),
+        ("HTML", lambda: parse_html_catalog(html_path), True),
+        ("CSV", lambda: process_sales_csv(csv_path), True),
+        # Legacy rules may be intentionally rejected by quality gate due to discrepancies.
+        ("LegacyCode", lambda: extract_logic_from_code(code_path), False),
     ]
 
-    for source_name, output in source_outputs:
-        _validate_and_collect(output, final_kb, source_name)
+    for source_name, source_callable, required in source_tasks:
+        try:
+            output = source_callable()
+        except Exception as error:
+            if required:
+                raise RuntimeError(f"Required source '{source_name}' failed: {error}") from error
+            print(f"{source_name}: extraction failed -> {error}")
+            continue
+
+        accepted = _validate_and_collect(output, final_kb, source_name)
+        if required and accepted == 0:
+            raise RuntimeError(
+                f"Required source '{source_name}' produced no valid documents after validation/quality checks."
+            )
 
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(final_kb, f, ensure_ascii=False, indent=2)

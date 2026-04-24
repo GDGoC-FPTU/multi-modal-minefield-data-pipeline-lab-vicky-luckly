@@ -1,13 +1,55 @@
 [
   {
     "document_id": "pdf-doc-001",
-    "content": "PDF extraction fallback for lecture_notes.pdf. Reason: missing GEMINI_API_KEY",
+    "content": "Title: Purchase Order Summary: This document is Purchase Order No. 2182354, issued by SNC Lavalin O&M Inc. for routine maintenance. It is addressed to ADVANCED PROPERTY SYSTEMS LTD. for services at 1075 West Georgia, Vancouver and 10370 Teresa Road, Lake Country. The order details a general maintenance call and mileage, specifically to repair stuck door latches, with a total cost of 51.85. Main topics: Purchase Order Processing, Routine Maintenance Services, Facility Management, Vendor Management, Door Repair Detected tables: 2",
     "source_type": "PDF",
-    "author": "Unknown",
+    "author": "SNC LAVALIN O&M",
     "timestamp": null,
     "source_metadata": {
       "original_file": "lecture_notes.pdf",
-      "extraction_status": "fallback"
+      "title": "Purchase Order",
+      "main_topics": [
+        "Purchase Order Processing",
+        "Routine Maintenance Services",
+        "Facility Management",
+        "Vendor Management",
+        "Door Repair"
+      ],
+      "tables": [
+        {
+          "table_name": "Purchase Order Header Details",
+          "key_values": [
+            "P.O. No.: 2182354",
+            "W.O. No.: 11801597",
+            "Date Ordered: 11/2/2023",
+            "Type: T- Routine Maintenance",
+            "From: SNC Lavalin O&M Inc. (Office Operation-Pacific)",
+            "To: ADVANCED PROPERTY SYSTEMS LTD.",
+            "Region: 01 Pacific",
+            "Proj. No.: 020201",
+            "Buyer: ANYKON",
+            "Customer Contact: ANYKON",
+            "Site No.: V4V0224",
+            "Control Number: 3DI AN E201 LATCH",
+            "Location: 10370 TERESA ROAD, LAKE COUNTRY",
+            "Modules: 161-16",
+            "Lock: 13493",
+            "Pad: No Pad",
+            "Inside DUA: N",
+            "Distance: 336 KM",
+            "Purchase Order Total: 51.85"
+          ]
+        },
+        {
+          "table_name": "Itemized Services",
+          "key_values": [
+            "Item 1: General Maintenance Call (1.00 MD @ 50.897) Total 50.90, Date Req. 11/4/2023 10:33:00",
+            "Item 2: Mileage outside DUA (1.00 KM @ .951) Total .95, Date Req. 11/4/2023 10:33:00",
+            "Work Description: RSCM HAVING A HARD TIME OPENING/CLOSING DOORS, LATCH AT THE TOP OF DOORS GETS STUCK, PLS ATTEND, REPAIR BACK TO SECURE WORKING ORDER, TAKE BEFORE/AFTER PICS FOR UPLOAD, SEND EV & FB, FAX FROM LAURA 250-766-3105, THANK YOU"
+          ]
+        }
+      ],
+      "extraction_status": "success"
     }
   },
   {
