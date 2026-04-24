@@ -3,11 +3,36 @@
 # ==========================================
 # Task: Implement quality gates to reject corrupt data or logic discrepancies.
 
+TOXIC_STRINGS = (
+    'null pointer exception',
+    'segmentation fault',
+    'traceback (most recent call last)',
+    'fatal error',
+)
+
+
+def _contains_toxic_content(content):
+    lowered = content.lower()
+    return any(token in lowered for token in TOXIC_STRINGS)
+
+
+def _has_logic_discrepancy(document_dict):
+    source_metadata = document_dict.get('source_metadata', {}) or {}
+    discrepancies = source_metadata.get('detected_discrepancies') or []
+    return len(discrepancies) > 0
+
 def run_quality_gate(document_dict):
-    # TODO: Reject documents with 'content' length < 20 characters
-    # TODO: Reject documents containing toxic/error strings (e.g., 'Null pointer exception')
-    # TODO: Flag discrepancies (e.g., if tax calculation comment says 8% but code says 10%)
-    
+    content = str(document_dict.get('content', '')).strip()
+
+    if len(content) < 20:
+        return False
+
+    if _contains_toxic_content(content):
+        return False
+
+    # Reject documents that carry explicit business-logic inconsistencies.
+    if _has_logic_discrepancy(document_dict):
+        return False
+
     # Return True if pass, False if fail.
-    
     return True

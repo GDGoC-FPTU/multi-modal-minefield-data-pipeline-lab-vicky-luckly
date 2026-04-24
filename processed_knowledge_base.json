@@ -1,0 +1,446 @@
+[
+  {
+    "document_id": "pdf-doc-001",
+    "content": "PDF extraction fallback for lecture_notes.pdf. Reason: missing GEMINI_API_KEY",
+    "source_type": "PDF",
+    "author": "Unknown",
+    "timestamp": null,
+    "source_metadata": {
+      "original_file": "lecture_notes.pdf",
+      "extraction_status": "fallback"
+    }
+  },
+  {
+    "document_id": "transcript-001",
+    "content": "Chào mừng các bạn đến với buổi học hôm nay về Data Pipeline Engineering. Hôm nay chúng ta sẽ nói về việc xử lý dữ liệu phi cấu trúc, ví dụ như PDF và Video. Một vấn đề lớn là Semantic Drift. Các bạn có biết không? Dạ em có nghe qua, nhưng nó có liên quan gì đến Zillow không ạ? Có chứ! Zillow là ví dụ điển hình của việc mô hình bị hỏng do dữ liệu đầu vào thay đổi. Đừng để mô hình của bạn trở thành 'rác vào, rác ra'. À, một lưu ý nhỏ cho bài tập: Giá của sản phẩm VinAI Pro là năm trăm nghìn VND. Nhớ nhé, 500,000 VND. Bây giờ chúng ta hãy bắt đầu thực hành.",
+    "source_type": "Video",
+    "author": "Transcript Speaker",
+    "timestamp": null,
+    "source_metadata": {
+      "detected_price_vnd": 500000,
+      "price_from_numeric": 500000,
+      "price_from_words": 500000,
+      "language": "vi"
+    }
+  },
+  {
+    "document_id": "html-SP-001",
+    "content": "Catalog item SP-001: VinAI Laptop Pro 14\" in category Laptop. Listed price text: 28,500,000 VND.",
+    "source_type": "HTML",
+    "author": "VinShop Catalog",
+    "timestamp": null,
+    "source_metadata": {
+      "product_id": "SP-001",
+      "product_name": "VinAI Laptop Pro 14\"",
+      "category": "Laptop",
+      "raw_price": "28,500,000 VND",
+      "normalized_price_vnd": 28500000,
+      "stock_quantity": 45,
+      "rating": "4.8/5"
+    }
+  },
+  {
+    "document_id": "html-SP-002",
+    "content": "Catalog item SP-002: Chuột không dây ErgoMax in category Phụ kiện. Listed price text: N/A.",
+    "source_type": "HTML",
+    "author": "VinShop Catalog",
+    "timestamp": null,
+    "source_metadata": {
+      "product_id": "SP-002",
+      "product_name": "Chuột không dây ErgoMax",
+      "category": "Phụ kiện",
+      "raw_price": "N/A",
+      "normalized_price_vnd": null,
+      "stock_quantity": 0,
+      "rating": "4.2/5"
+    }
+  },
+  {
+    "document_id": "html-SP-003",
+    "content": "Catalog item SP-003: Màn hình 4K 27\" ProDisplay in category Màn hình. Listed price text: Liên hệ.",
+    "source_type": "HTML",
+    "author": "VinShop Catalog",
+    "timestamp": null,
+    "source_metadata": {
+      "product_id": "SP-003",
+      "product_name": "Màn hình 4K 27\" ProDisplay",
+      "category": "Màn hình",
+      "raw_price": "Liên hệ",
+      "normalized_price_vnd": null,
+      "stock_quantity": 12,
+      "rating": "4.9/5"
+    }
+  },
+  {
+    "document_id": "html-SP-004",
+    "content": "Catalog item SP-004: Bàn phím cơ Blue Switch in category Phụ kiện. Listed price text: 1,850,000 VND.",
+    "source_type": "HTML",
+    "author": "VinShop Catalog",
+    "timestamp": null,
+    "source_metadata": {
+      "product_id": "SP-004",
+      "product_name": "Bàn phím cơ Blue Switch",
+      "category": "Phụ kiện",
+      "raw_price": "1,850,000 VND",
+      "normalized_price_vnd": 1850000,
+      "stock_quantity": -5,
+      "rating": "4.5/5"
+    }
+  },
+  {
+    "document_id": "html-SP-005",
+    "content": "Catalog item SP-005: Tai nghe chống ồn AI-Ear Pro in category Âm thanh. Listed price text: 3,200,000 VND.",
+    "source_type": "HTML",
+    "author": "VinShop Catalog",
+    "timestamp": null,
+    "source_metadata": {
+      "product_id": "SP-005",
+      "product_name": "Tai nghe chống ồn AI-Ear Pro",
+      "category": "Âm thanh",
+      "raw_price": "3,200,000 VND",
+      "normalized_price_vnd": 3200000,
+      "stock_quantity": 28,
+      "rating": "không có đánh giá"
+    }
+  },
+  {
+    "document_id": "csv-1",
+    "content": "Sale record for Laptop VinAI Pro 14 (Electronics). Raw price: $1200; normalized price: 1200.0.",
+    "source_type": "CSV",
+    "author": "S001",
+    "timestamp": "2026-01-15T00:00:00",
+    "source_metadata": {
+      "product_name": "Laptop VinAI Pro 14",
+      "category": "Electronics",
+      "raw_price": "$1200",
+      "normalized_price": 1200.0,
+      "currency": "USD",
+      "date_of_sale": "2026-01-15",
+      "seller_id": "S001",
+      "stock_quantity": 45
+    }
+  },
+  {
+    "document_id": "csv-2",
+    "content": "Sale record for Wireless Mouse (Electronics). Raw price: 250000; normalized price: 250000.0.",
+    "source_type": "CSV",
+    "author": "S002",
+    "timestamp": "2026-01-15T00:00:00",
+    "source_metadata": {
+      "product_name": "Wireless Mouse",
+      "category": "Electronics",
+      "raw_price": "250000",
+      "normalized_price": 250000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-15",
+      "seller_id": "S002",
+      "stock_quantity": 120
+    }
+  },
+  {
+    "document_id": "csv-3",
+    "content": "Sale record for USB-C Hub 7-Port (Electronics). Raw price: nan; normalized price: None.",
+    "source_type": "CSV",
+    "author": "S003",
+    "timestamp": "2026-01-16T00:00:00",
+    "source_metadata": {
+      "product_name": "USB-C Hub 7-Port",
+      "category": "Electronics",
+      "raw_price": null,
+      "normalized_price": null,
+      "currency": "USD",
+      "date_of_sale": "2026-01-16",
+      "seller_id": "S003",
+      "stock_quantity": 0
+    }
+  },
+  {
+    "document_id": "csv-4",
+    "content": "Sale record for Mechanical Keyboard (Electronics). Raw price: 1500000; normalized price: 1500000.0.",
+    "source_type": "CSV",
+    "author": "S004",
+    "timestamp": "2026-01-17T00:00:00",
+    "source_metadata": {
+      "product_name": "Mechanical Keyboard",
+      "category": "Electronics",
+      "raw_price": "1500000",
+      "normalized_price": 1500000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-17",
+      "seller_id": "S004",
+      "stock_quantity": 30
+    }
+  },
+  {
+    "document_id": "csv-5",
+    "content": "Sale record for HDMI Cable 2m (Accessories). Raw price: five dollars; normalized price: 5.0.",
+    "source_type": "CSV",
+    "author": "S005",
+    "timestamp": "2026-01-17T00:00:00",
+    "source_metadata": {
+      "product_name": "HDMI Cable 2m",
+      "category": "Accessories",
+      "raw_price": "five dollars",
+      "normalized_price": 5.0,
+      "currency": "USD",
+      "date_of_sale": "2026-01-17",
+      "seller_id": "S005",
+      "stock_quantity": 200
+    }
+  },
+  {
+    "document_id": "csv-6",
+    "content": "Sale record for Monitor 27 inch 4K (Electronics). Raw price: 8500000; normalized price: 8500000.0.",
+    "source_type": "CSV",
+    "author": "S001",
+    "timestamp": "2026-01-18T00:00:00",
+    "source_metadata": {
+      "product_name": "Monitor 27 inch 4K",
+      "category": "Electronics",
+      "raw_price": "8500000",
+      "normalized_price": 8500000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-18",
+      "seller_id": "S001",
+      "stock_quantity": 12
+    }
+  },
+  {
+    "document_id": "csv-7",
+    "content": "Sale record for Webcam HD 1080p (Electronics). Raw price: -350000; normalized price: -350000.0.",
+    "source_type": "CSV",
+    "author": "S002",
+    "timestamp": "2026-01-19T00:00:00",
+    "source_metadata": {
+      "product_name": "Webcam HD 1080p",
+      "category": "Electronics",
+      "raw_price": "-350000",
+      "normalized_price": -350000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-19",
+      "seller_id": "S002",
+      "stock_quantity": 55
+    }
+  },
+  {
+    "document_id": "csv-8",
+    "content": "Sale record for SSD 1TB NVMe (Electronics). Raw price: 2200000; normalized price: 2200000.0.",
+    "source_type": "CSV",
+    "author": "S003",
+    "timestamp": "2026-01-19T00:00:00",
+    "source_metadata": {
+      "product_name": "SSD 1TB NVMe",
+      "category": "Electronics",
+      "raw_price": "2200000",
+      "normalized_price": 2200000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-19",
+      "seller_id": "S003",
+      "stock_quantity": 88
+    }
+  },
+  {
+    "document_id": "csv-9",
+    "content": "Sale record for Laptop Stand (Accessories). Raw price: 450000; normalized price: 450000.0.",
+    "source_type": "CSV",
+    "author": "S004",
+    "timestamp": "2026-01-20T00:00:00",
+    "source_metadata": {
+      "product_name": "Laptop Stand",
+      "category": "Accessories",
+      "raw_price": "450000",
+      "normalized_price": 450000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-20",
+      "seller_id": "S004",
+      "stock_quantity": null
+    }
+  },
+  {
+    "document_id": "csv-10",
+    "content": "Sale record for Bluetooth Speaker (Electronics). Raw price: 850000; normalized price: 850000.0.",
+    "source_type": "CSV",
+    "author": "S005",
+    "timestamp": "2026-01-20T00:00:00",
+    "source_metadata": {
+      "product_name": "Bluetooth Speaker",
+      "category": "Electronics",
+      "raw_price": "850000",
+      "normalized_price": 850000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-20",
+      "seller_id": "S005",
+      "stock_quantity": 40
+    }
+  },
+  {
+    "document_id": "csv-11",
+    "content": "Sale record for Gaming Headset (Electronics). Raw price: 1200000; normalized price: 1200000.0.",
+    "source_type": "CSV",
+    "author": "S001",
+    "timestamp": "2026-01-21T00:00:00",
+    "source_metadata": {
+      "product_name": "Gaming Headset",
+      "category": "Electronics",
+      "raw_price": "1200000",
+      "normalized_price": 1200000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-21",
+      "seller_id": "S001",
+      "stock_quantity": 25
+    }
+  },
+  {
+    "document_id": "csv-12",
+    "content": "Sale record for Power Bank 20000mAh (Accessories). Raw price: 600000; normalized price: 600000.0.",
+    "source_type": "CSV",
+    "author": "S002",
+    "timestamp": "2026-01-21T00:00:00",
+    "source_metadata": {
+      "product_name": "Power Bank 20000mAh",
+      "category": "Accessories",
+      "raw_price": "600000",
+      "normalized_price": 600000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-21",
+      "seller_id": "S002",
+      "stock_quantity": 70
+    }
+  },
+  {
+    "document_id": "csv-13",
+    "content": "Sale record for Smart Watch VinHealth (Wearables). Raw price: Liên hệ; normalized price: None.",
+    "source_type": "CSV",
+    "author": "S003",
+    "timestamp": "2026-01-22T00:00:00",
+    "source_metadata": {
+      "product_name": "Smart Watch VinHealth",
+      "category": "Wearables",
+      "raw_price": "Liên hệ",
+      "normalized_price": null,
+      "currency": "VND",
+      "date_of_sale": "2026-01-22",
+      "seller_id": "S003",
+      "stock_quantity": 15
+    }
+  },
+  {
+    "document_id": "csv-14",
+    "content": "Sale record for Phone Case Premium (Accessories). Raw price: 150000; normalized price: 150000.0.",
+    "source_type": "CSV",
+    "author": "S004",
+    "timestamp": "2026-01-22T00:00:00",
+    "source_metadata": {
+      "product_name": "Phone Case Premium",
+      "category": "Accessories",
+      "raw_price": "150000",
+      "normalized_price": 150000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-22",
+      "seller_id": "S004",
+      "stock_quantity": 300
+    }
+  },
+  {
+    "document_id": "csv-15",
+    "content": "Sale record for Laptop VinAI Pro 14 (Electronics). Raw price: 1200; normalized price: 1200.0.",
+    "source_type": "CSV",
+    "author": "S001",
+    "timestamp": "2026-01-22T00:00:00",
+    "source_metadata": {
+      "product_name": "Laptop VinAI Pro 14",
+      "category": "Electronics",
+      "raw_price": "1200",
+      "normalized_price": 1200.0,
+      "currency": "USD",
+      "date_of_sale": "2026-01-22",
+      "seller_id": "S001",
+      "stock_quantity": 45
+    }
+  },
+  {
+    "document_id": "csv-16",
+    "content": "Sale record for Tablet 10 inch (Electronics). Raw price: 5500000; normalized price: 5500000.0.",
+    "source_type": "CSV",
+    "author": "S005",
+    "timestamp": "2026-01-23T00:00:00",
+    "source_metadata": {
+      "product_name": "Tablet 10 inch",
+      "category": "Electronics",
+      "raw_price": "5500000",
+      "normalized_price": 5500000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-23",
+      "seller_id": "S005",
+      "stock_quantity": 20
+    }
+  },
+  {
+    "document_id": "csv-17",
+    "content": "Sale record for Earbuds TWS Pro (Electronics). Raw price: 750000; normalized price: 750000.0.",
+    "source_type": "CSV",
+    "author": "S001",
+    "timestamp": "2026-01-23T00:00:00",
+    "source_metadata": {
+      "product_name": "Earbuds TWS Pro",
+      "category": "Electronics",
+      "raw_price": "750000",
+      "normalized_price": 750000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-23",
+      "seller_id": "S001",
+      "stock_quantity": 60
+    }
+  },
+  {
+    "document_id": "csv-18",
+    "content": "Sale record for Screen Protector (Accessories). Raw price: 85000; normalized price: 85000.0.",
+    "source_type": "CSV",
+    "author": "S002",
+    "timestamp": "2026-01-24T00:00:00",
+    "source_metadata": {
+      "product_name": "Screen Protector",
+      "category": "Accessories",
+      "raw_price": "85000",
+      "normalized_price": 85000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-24",
+      "seller_id": "S002",
+      "stock_quantity": 500
+    }
+  },
+  {
+    "document_id": "csv-19",
+    "content": "Sale record for External HDD 2TB (Electronics). Raw price: 1800000; normalized price: 1800000.0.",
+    "source_type": "CSV",
+    "author": "S003",
+    "timestamp": "2026-01-24T00:00:00",
+    "source_metadata": {
+      "product_name": "External HDD 2TB",
+      "category": "Electronics",
+      "raw_price": "1800000",
+      "normalized_price": 1800000.0,
+      "currency": "VND",
+      "date_of_sale": "2026-01-24",
+      "seller_id": "S003",
+      "stock_quantity": 35
+    }
+  },
+  {
+    "document_id": "csv-20",
+    "content": "Sale record for RAM DDR5 16GB (Electronics). Raw price: nan; normalized price: None.",
+    "source_type": "CSV",
+    "author": "S004",
+    "timestamp": "2026-01-25T00:00:00",
+    "source_metadata": {
+      "product_name": "RAM DDR5 16GB",
+      "category": "Electronics",
+      "raw_price": null,
+      "normalized_price": null,
+      "currency": "VND",
+      "date_of_sale": "2026-01-25",
+      "seller_id": "S004",
+      "stock_quantity": 42
+    }
+  }
+]
