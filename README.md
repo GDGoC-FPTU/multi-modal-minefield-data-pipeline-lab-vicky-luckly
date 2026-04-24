@@ -7,8 +7,8 @@
    - Email đăng ký chương trình: hoangduchung0311@gmai.com
    - username github: selffullfilling-prophecy
 2. Nguyễn Thị Hương Giang
-   - Email: nguyenhuonggiang06092004@gmail .com
+   - Email: nguyenhuonggiang06092004@gmail.com
    - username github: nthg0609
 3. Trần Hữu Gia Huy
-   - Email: tranhuugiahuynb.com
+   - Email: tranhuugiahuynb@gmail.com
    - username: Huygiacu123
